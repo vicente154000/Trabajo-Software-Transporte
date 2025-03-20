@@ -11,6 +11,14 @@ public class Entrenamiento {
     private int caloriasQuemadas;
     private Date fecha;
     private List<Ejercicio> ejercicios;
+    
+    public Entrenamiento(int idUsuario, int duracion, int caloriasQuemadas, Date fecha, List<Ejercicio> ejercicios){
+        this.idUsuario = idUsuario;
+        this.duracion = duracion;
+        this.caloriasQuemadas = caloriasQuemadas;
+        this.fecha = fecha;
+        this.ejercicios = ejercicios;
+    }
 
     public int getId() {
         return id;

@@ -12,6 +12,16 @@ public class Usuario {
     private int altura;
     private int edad;
     private int peso;
+    
+    public Usuario(String nombre, String email, String contraseña, List<Entrenamiento> historial, int altura, int peso, int edad){
+        this.nombre = nombre;
+        this.email = email;
+        this.contraseña = contraseña;
+        this.historial = historial;
+        this.altura = altura;
+        this.edad = edad;
+        this.peso = peso;
+    }
 
     public String getNombre() {
         return nombre;

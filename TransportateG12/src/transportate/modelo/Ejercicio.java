@@ -8,6 +8,14 @@ public class Ejercicio {
     private int duracion;
     private int intensidad;
     private Ubicacion ubicacion;
+    
+    public Ejercicio(String nombre, String descripcion, int duracion, int intensidad, Ubicacion ubicacion){
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.duracion = duracion; // Rango de 1-10, siendo 10 el ejercicio mas largo
+        this.intensidad = intensidad; // Rango de 1-3
+        this.ubicacion = ubicacion;
+    }
 
     public int getId() {
         return id;
