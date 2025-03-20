@@ -4,12 +4,10 @@
  */
 package transportate.test.dao;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
+import org.junit.jupiter.api.Test
+;import static org.junit.jupiter.api.Assertions.*;
+import transportate.dao.ListaEjercicios;
 import transportate.modelo.Ejercicio;
 import transportate.modelo.Ubicacion;
 
@@ -24,6 +22,21 @@ public class TestEjercicio {
     
     @Test
     public void given_new_exercise_inserts_into_list(){
-        Ejercicio ejercicio = new Ejercicio("Burpie", "Flexion + salto", 4, 3, new Ubicacion("Aula 002", 100, 100));
+        ListaEjercicios listaEjercicios = new ListaEjercicios();
+        Ejercicio ejercicio = new Ejercicio(1, "Burpie", "Flexion + salto", 4, 3, new Ubicacion("Aula 002", 100, 100));
+        listaEjercicios.addEjercicio(ejercicio);
+        List<Ejercicio> ejercicios = listaEjercicios.getListaEjercicios();
+        assertEquals(ejercicio,ejercicios.get(0));
+    }
+    
+    @Test
+    public void given_existing_exercise_deletes_from_list() {
+        ListaEjercicios listaEjercicios = new ListaEjercicios();
+        Ejercicio ejercicio = new Ejercicio(1, "Burpie", "Flexión + salto", 4, 3, new Ubicacion("Aula 002", 100, 100));
+        listaEjercicios.addEjercicio(ejercicio);
+        assertTrue(listaEjercicios.getListaEjercicios().contains(ejercicio));
+        listaEjercicios.deleteEjercicio(ejercicio);
+        assertFalse(listaEjercicios.getListaEjercicios().contains(ejercicio));
+        assertEquals(0, listaEjercicios.getListaEjercicios().size());
     }
 }

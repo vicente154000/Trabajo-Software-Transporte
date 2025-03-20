@@ -1,6 +1,8 @@
 
 package transportate.controlador;
 
+import transportate.modelo.Ubicacion;
+
 public class main {
     
     public static void main(String[] args) {
