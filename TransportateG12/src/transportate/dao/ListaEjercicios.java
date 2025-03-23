@@ -4,6 +4,7 @@
  */
 package transportate.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import transportate.modelo.Ejercicio;
 
@@ -13,6 +14,10 @@ import transportate.modelo.Ejercicio;
  */
 public class ListaEjercicios implements ListaEjerciciosInterface{
     private List<Ejercicio> listaEjercicios;
+    
+    public ListaEjercicios() {
+        listaEjercicios = new ArrayList<>();
+    }
 
     @Override
     public void addEjercicio(Ejercicio ejercicio) {

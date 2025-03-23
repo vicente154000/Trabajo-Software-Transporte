@@ -4,6 +4,7 @@
  */
 package transportate.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import transportate.modelo.Usuario;
 
@@ -14,6 +15,11 @@ import transportate.modelo.Usuario;
 public class ListaUsuarios implements ListaUsuariosInterface{
 
     public List<Usuario> listaUsuarios;
+
+    public ListaUsuarios() {
+        listaUsuarios = new ArrayList<>();
+    }
+    
     
     @Override
     public void addUsuario(Usuario usuario) {
@@ -29,7 +35,7 @@ public class ListaUsuarios implements ListaUsuariosInterface{
     public void deleteUsuario(Usuario usuario) {
         listaUsuarios.remove(usuario);
     }
-
+    
     @Override
     public void updateUsuario(Usuario usuario) {
         listaUsuarios.set(listaUsuarios.indexOf(usuario), usuario);
