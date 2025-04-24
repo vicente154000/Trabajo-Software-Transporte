@@ -1,7 +1,7 @@
 package modelo;
 
 public class Ubicacion {
-
+    
     private String nombre;      // Nombre de la ubicación
     private double latitud;     // Coordenada de latitud
     private double longitud;    // Coordenada de longitud

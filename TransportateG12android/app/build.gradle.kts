@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.transportateg12"
+    namespace = "com.example.transportateg12android"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.transportateg12"
+        applicationId = "com.example.transportateg12android"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -33,6 +33,10 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     testImplementation(libs.junit)
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
+}
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
