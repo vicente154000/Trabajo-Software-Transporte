@@ -13,7 +13,7 @@ import modelo.Ejercicio;
  */
 public interface ListaEjerciciosInterface {
     
-    public void addEjercicio(Ejercicio ejercicio);
+    public String addEjercicio(Ejercicio ejercicio);
     
     public void deleteEjercicio(Ejercicio ejercicio);
     

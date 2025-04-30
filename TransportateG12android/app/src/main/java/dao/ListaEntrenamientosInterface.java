@@ -13,7 +13,7 @@ import modelo.Entrenamiento;
  */
 public interface ListaEntrenamientosInterface {
     
-    public void addEntrenamiento(Entrenamiento entrenamiento);
+    public String addEntrenamiento(Entrenamiento entrenamiento);
     
     public List<Entrenamiento> getListaEntrenamientos();
     

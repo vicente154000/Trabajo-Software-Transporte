@@ -13,7 +13,7 @@ import modelo.Usuario;
  */
 public interface ListaUsuariosInterface {
     
-    public void addUsuario(Usuario usuario);
+    public String addUsuario(Usuario usuario);
     
     public List<Usuario> getListaUsuarios();
     
