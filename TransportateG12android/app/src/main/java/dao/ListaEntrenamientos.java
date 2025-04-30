@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import okhttp3.MediaType;
@@ -88,6 +89,61 @@ public class ListaEntrenamientos implements ListaEntrenamientosInterface{
 
         return listaEntrenamientos;
     }
+
+    @Override
+    public List<Entrenamiento> getEntrenamientosPorIntensidad(String tipoIntensidad) {
+        ArrayList<Entrenamiento> listaEntrenamientos = new ArrayList<>();
+        String filtroJson = "";
+
+        switch (tipoIntensidad.toLowerCase()) {
+            case "baja":
+                filtroJson = "{\"intensidad\":{\"$lt\":1.5}}";
+                break;
+            case "media":
+                filtroJson = "{\"intensidad\":{\"$gte\":1.5,\"$lt\":3.5}}";
+                break;
+            case "alta":
+                filtroJson = "{\"intensidad\":{\"$gte\":4}}";
+                break;
+            default:
+                return listaEntrenamientos;
+        }
+
+        try {
+            String encodedFiltroJson = URLEncoder.encode(filtroJson, "UTF-8");
+            String url = API_URL + "?where=" + encodedFiltroJson;
+
+            Request request = new Request.Builder()
+                    .url(url)
+                    .addHeader("X-Parse-Application-Id", APPLICATION_ID)
+                    .addHeader("X-Parse-REST-API-Key", REST_API_KEY)
+                    .get()
+                    .build();
+
+            OkHttpClient client = new OkHttpClient();
+            Response response = client.newCall(request).execute();
+
+            if (response.isSuccessful()) {
+                String responseJson = response.body().string();
+                System.out.println("Response JSON: " + responseJson);
+
+                JsonObject jsonObject = new Gson().fromJson(responseJson, JsonObject.class);
+                JsonArray jsonArray = jsonObject.getAsJsonArray("results");
+
+                Type listType = new TypeToken<List<Entrenamiento>>(){}.getType();
+                listaEntrenamientos = new Gson().fromJson(jsonArray, listType);
+
+            } else {
+                System.out.println("Error en la respuesta: " + response.code());
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error al filtrar entrenamientos: " + e.getMessage());
+        }
+
+        return listaEntrenamientos;
+    }
+
 
     @Override
     public void deleteEntrenamiento(Entrenamiento entrenamiento) {

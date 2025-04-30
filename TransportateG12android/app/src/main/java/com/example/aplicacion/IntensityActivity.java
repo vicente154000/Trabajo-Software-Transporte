@@ -1,5 +1,4 @@
 package com.example.aplicacion;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,13 +11,24 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.List;
+import java.util.ArrayList;
+
+import dao.ListaEjercicioEntrenamiento;
+import dao.ListaEntrenamientos;
+import modelo.Ejercicio;
+import modelo.Entrenamiento;
+import negocio.EntrenamientoNegocio;
+
 public class IntensityActivity extends AppCompatActivity {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
-
     Button btnAlta, btnMedia, btnBaja;
+    ListaEjercicioEntrenamiento listaEjercicioEntrenamiento = new ListaEjercicioEntrenamiento("PZhlOWsdhQur0CyiDdUTnjofkAnKCFu6tJyymCpM", "plmowUHRNjWQ5tCW85rr26EWeu3RW44c6lAJAgGe");
+
+    EntrenamientoNegocio entrenamientoNegocio = new EntrenamientoNegocio(new ListaEntrenamientos("PZhlOWsdhQur0CyiDdUTnjofkAnKCFu6tJyymCpM", "plmowUHRNjWQ5tCW85rr26EWeu3RW44c6lAJAgGe"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,16 +67,36 @@ public class IntensityActivity extends AppCompatActivity {
 
         btnAlta.setOnClickListener(v -> {
             Intent intent = new Intent(IntensityActivity.this, ExerciseActivity.class);
+            System.out.println("FGAL^DKFSHA^DOHASÔDHASOI^D");
+
+            Entrenamiento entrenamientoSeleccionado = entrenamientoNegocio.obtenerEntrenamientoAleatorioPorTipo("alta");
+
+            List<Ejercicio> ejercicios = listaEjercicioEntrenamiento.getEjerciciosDeUnEntrenamiento(entrenamientoSeleccionado.getId());
+            ArrayList<Ejercicio> listaEjercicios = new ArrayList<>(ejercicios);
+
+            intent.putParcelableArrayListExtra("ejercicios", listaEjercicios);
             startActivity(intent);
         });
 
         btnMedia.setOnClickListener(v -> {
             Intent intent = new Intent(IntensityActivity.this, ExerciseActivity.class);
+            Entrenamiento entrenamientoSeleccionado = entrenamientoNegocio.obtenerEntrenamientoAleatorioPorTipo("media");
+
+            List<Ejercicio> ejercicios = listaEjercicioEntrenamiento.getEjerciciosDeUnEntrenamiento(entrenamientoSeleccionado.getId());
+            ArrayList<Ejercicio> listaEjercicios = new ArrayList<>(ejercicios);
+
+            intent.putParcelableArrayListExtra("ejercicios", listaEjercicios);
             startActivity(intent);
         });
 
         btnBaja.setOnClickListener(v -> {
             Intent intent = new Intent(IntensityActivity.this, ExerciseActivity.class);
+            Entrenamiento entrenamientoSeleccionado = entrenamientoNegocio.obtenerEntrenamientoAleatorioPorTipo("baja");
+
+            List<Ejercicio> ejercicios = listaEjercicioEntrenamiento.getEjerciciosDeUnEntrenamiento(entrenamientoSeleccionado.getId());
+            ArrayList<Ejercicio> listaEjercicios = new ArrayList<>(ejercicios);
+
+            intent.putParcelableArrayListExtra("ejercicios", listaEjercicios);
             startActivity(intent);
         });
     }

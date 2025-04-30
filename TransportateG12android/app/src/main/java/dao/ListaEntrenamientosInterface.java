@@ -20,5 +20,7 @@ public interface ListaEntrenamientosInterface {
     public void deleteEntrenamiento(Entrenamiento entrenamiento);
     
     public void updateEntrenamiento(Entrenamiento entrenamiento);
+
+    public List<Entrenamiento> getEntrenamientosPorIntensidad(String tipoIntensidad);
     
 }
