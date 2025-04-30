@@ -7,4 +7,23 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Paleta Fitness Nocturno -->
+    <color name="dark_background">#232222</color>
+    <color name="dark_surface">#1E1E1E</color>
+    <color name="accent_orange">#FF7043</color>
+    <color name="accent_teal">#4DB6AC</color>
+
+    <!-- Textos -->
+    <color name="text_white">#FFFFFF</color>
+    <color name="text_primary">#DEFFFFFF</color>
+    <color name="text_secondary">#99FFFFFF</color>
+
+    <!-- Botones de intensidad -->
+    <color name="intensity_high">#FF7043</color>
+    <color name="intensity_medium">#4DB6AC</color>
+    <color name="intensity_low">#78909C</color>
+
+    <color name="map_placeholder">#1E1E1E</color>
+    <color name="separator_bar">#FF7043</color>
 </resources>

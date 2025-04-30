@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TransportateG12Android"
+rootProject.name = "Aplicacion"
 include(":app")
  

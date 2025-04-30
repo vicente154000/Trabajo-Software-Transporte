@@ -1,3 +1,21 @@
 <resources>
-    <string name="app_name">TransportateG12Android</string>
+    <string name="app_name">Aplicacion</string>
+    <string name="navigation_drawer_open">Abrir menú</string>
+    <string name="navigation_drawer_close">Cerrar menú</string>
+    <string name="escribe_tu_nombre">Escribe tu nombre</string>
+    <string name="logo">Logo</string>
+    <string name="login">LOGIN</string>
+    <string name="completar">COMPLETAR</string>
+    <string name="cancelar_ejercicio">CANCELAR EJERCICIO</string>
+    <string name="empezar">EMPEZAR</string>
+    <string name="texto">TEXTO</string>
+    <string name="gps">GPS</string>
+    <string name="camara">Cámara</string>
+    <string name="text_principal_warning">Si no le das a empezar no comenzará el ejercicio</string>
+    <string name="ayuda">Ayuda</string>
+    <string name="intensidad">Intensidad</string>
+    <string name="elige_la_intensidad_del_ejercicio">Elige la intensidad del ejercicio</string>
+    <string name="alta">ALTA</string>
+    <string name="media">MEDIA</string>
+    <string name="baja">BAJA</string>
 </resources>
