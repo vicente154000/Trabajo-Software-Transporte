@@ -1,7 +1,9 @@
 package modelo;
+import android.os.Parcelable;
+
 import modelo.Ubicacion;
 
-public class Ejercicio {
+public class Ejercicio implements Parcelable {
 
     private String objectId;
     private String nombre;
@@ -17,6 +19,43 @@ public class Ejercicio {
         this.duracion = duracion;
         this.intensidad = intensidad;
         this.nombreUbicacion = nombreUbicacion;
+    }
+
+    // Constructor desde Parcel
+    protected Ejercicio(android.os.Parcel in) {
+        objectId = in.readString();
+        nombre = in.readString();
+        descripcion = in.readString();
+        duracion = in.readInt();
+        intensidad = in.readInt();
+        nombreUbicacion = in.readString();
+    }
+
+    public static final Creator<Ejercicio> CREATOR = new Creator<Ejercicio>() {
+        @Override
+        public Ejercicio createFromParcel(android.os.Parcel in) {
+            return new Ejercicio(in);
+        }
+
+        @Override
+        public Ejercicio[] newArray(int size) {
+            return new Ejercicio[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(android.os.Parcel dest, int flags) {
+        dest.writeString(objectId);
+        dest.writeString(nombre);
+        dest.writeString(descripcion);
+        dest.writeInt(duracion);
+        dest.writeInt(intensidad);
+        dest.writeString(nombreUbicacion);
     }
 
     //Getter

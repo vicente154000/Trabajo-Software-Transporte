@@ -145,4 +145,33 @@ public class ListaEjercicios implements ListaEjerciciosInterface {
             System.out.println(e.getMessage());
         }
     }
+
+    @Override
+    public Ejercicio getEjercicioPorId(String id) {
+        Ejercicio ejercicio = null;
+
+        try {
+            Request request = new Request.Builder()
+                .url(API_URL + "/" + id)
+                .addHeader("X-Parse-Application-Id", APPLICATION_ID)
+                .addHeader("X-Parse-REST-API-Key", REST_API_KEY)
+                .get()
+                .build();
+
+            OkHttpClient client = new OkHttpClient();
+            Response response = client.newCall(request).execute();
+
+            if (response.isSuccessful()) {
+                String responseJson = response.body().string();
+                System.out.println(responseJson);
+                ejercicio = new Gson().fromJson(responseJson, Ejercicio.class);
+            } else {
+                System.out.println("Error al obtener el ejercicio: " + response.code());
+            }
+        } catch (IOException e) {
+            System.out.println("Error de conexión: " + e.getMessage());
+        }
+
+        return ejercicio;
+    }
 }
