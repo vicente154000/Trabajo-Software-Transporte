@@ -54,7 +54,6 @@ public class EditarEjerciciosDialog extends JDialog {
             listaEntrenamientosDAO.updateEntrenamiento(entrenamiento);
         };
 
-        // Obtener vínculos actuales
         List<EjercicioEntrenamiento> vinculados = daoVinculos.getEjerciciosPorEntrenamiento(entrenamiento.getId());
         List<String> idsVinculados = vinculados.stream()
                 .map(EjercicioEntrenamiento::getEjercicioId)
@@ -68,12 +67,10 @@ public class EditarEjerciciosDialog extends JDialog {
             }
         }
 
-        // Panel de listas
         JPanel panelListas = new JPanel(new GridLayout(1, 2));
         panelListas.add(new JScrollPane(listaDisponibles));
         panelListas.add(new JScrollPane(listaVinculados));
 
-        // Botones
         btnAgregar = new JButton("Agregar >>");
         btnQuitar = new JButton("<< Quitar");
 
@@ -87,7 +84,6 @@ public class EditarEjerciciosDialog extends JDialog {
 
         add(centro, BorderLayout.CENTER);
 
-        // Eventos
         btnAgregar.addActionListener(e -> {
             Ejercicio seleccionado = listaDisponibles.getSelectedValue();
             if (seleccionado != null) {
@@ -106,7 +102,6 @@ public class EditarEjerciciosDialog extends JDialog {
         btnQuitar.addActionListener(e -> {
             Ejercicio seleccionado = listaVinculados.getSelectedValue();
             if (seleccionado != null) {
-                // Buscar el vínculo
                 EjercicioEntrenamiento aEliminar = vinculados.stream()
                         .filter(v -> v.getEjercicioId().equals(seleccionado.getId()))
                         .findFirst().orElse(null);

@@ -20,4 +20,6 @@ public interface ListaEjerciciosInterface {
     public List<Ejercicio> getListaEjercicios();
     
     public void updateEjercicio(Ejercicio ejercicio);
+
+    public Ejercicio getEjercicioPorId(String idEjercicio);
 }

@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import transportate.modelo.Ejercicio;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -184,6 +186,24 @@ public class ListaEjercicioEntrenamiento implements ListaEjercicioEntrenamientoI
         }
 
         return relacionados;
+    }
+
+    @Override
+    public List<Ejercicio> getEjerciciosDeUnEntrenamiento(String entrenamientoId) {
+        ListaEjercicioEntrenamiento relacionDao = new ListaEjercicioEntrenamiento(APPLICATION_ID, REST_API_KEY);
+        ListaEjercicios ejercicioDao = new ListaEjercicios(APPLICATION_ID, REST_API_KEY);
+
+        List<EjercicioEntrenamiento> relaciones = relacionDao.getEjerciciosPorEntrenamiento(entrenamientoId);
+        List<Ejercicio> ejercicios = new ArrayList<>();
+
+        for (EjercicioEntrenamiento rel : relaciones) {
+            Ejercicio ejercicio = ejercicioDao.getEjercicioPorId(rel.getEjercicioId());
+            if (ejercicio != null) {
+                ejercicios.add(ejercicio);
+            }
+        }
+
+        return ejercicios;
     }
     
 }

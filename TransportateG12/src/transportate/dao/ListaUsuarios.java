@@ -8,17 +8,18 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import transportate.modelo.Usuario;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import transportate.modelo.Entrenamiento;
-import transportate.modelo.Usuario;
 
 /**
  *
@@ -149,5 +150,4 @@ public class ListaUsuarios implements ListaUsuariosInterface{
             System.out.println(e.getMessage());
         }
     }
-    
 }

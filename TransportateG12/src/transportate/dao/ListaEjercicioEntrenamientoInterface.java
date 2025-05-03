@@ -5,6 +5,8 @@
 package transportate.dao;
 
 import java.util.List;
+
+import transportate.modelo.Ejercicio;
 import transportate.modelo.EjercicioEntrenamiento;
 
 /**
@@ -19,4 +21,6 @@ public interface ListaEjercicioEntrenamientoInterface {
     public void updatejercicioEntrenamiento(EjercicioEntrenamiento ejercicioEntrenamiento);
     
     public List<EjercicioEntrenamiento> getAllEjercicioEntrenamiento();
+
+    public List<Ejercicio> getEjerciciosDeUnEntrenamiento(String entrenamientoId);
 }
