@@ -150,5 +150,4 @@ public class ListaUsuarios implements ListaUsuariosInterface{
             System.out.println(e.getMessage());
         }
     }
-    
 }

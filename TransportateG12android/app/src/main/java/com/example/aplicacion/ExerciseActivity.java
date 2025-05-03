@@ -6,6 +6,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.app.AlertDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,7 +18,7 @@ import modelo.Ejercicio;
 
 public class ExerciseActivity extends AppCompatActivity {
 
-    private Button btnStart, btnComplete, btnCancel, btnCamera;
+    private Button btnStart, btnComplete, btnCancel, btnCamera,btnHelp;
     private TextView textoEjercicio;
     private EditText textoNombreEjercicio;
     private boolean camaraCompletada = false;
@@ -23,6 +26,7 @@ public class ExerciseActivity extends AppCompatActivity {
     private static final int REQUEST_CAMARA = 101;
     private ArrayList<Ejercicio> ejercicios;
     private int ejercicioActual = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,7 @@ public class ExerciseActivity extends AppCompatActivity {
         btnComplete = findViewById(R.id.btnComplete);
         btnCancel = findViewById(R.id.btnCancel);
         btnCamera = findViewById(R.id.btnCamera);
+        btnHelp = findViewById(R.id.btnHelp);
         textoNombreEjercicio = findViewById(R.id.nombreEjercicio);
         textoEjercicio = findViewById(R.id.descripcionEjercicio);
 
@@ -76,8 +81,30 @@ public class ExerciseActivity extends AppCompatActivity {
 
         //Listener para botón CANCELAR
         btnCancel.setOnClickListener(v -> {
-            Toast.makeText(this, "Ejercicio cancelado", Toast.LENGTH_SHORT).show();
-            finish(); //Termina esta actividad
+            AlertDialog.Builder builder = new AlertDialog.Builder(ExerciseActivity.this);
+            LayoutInflater inflater = getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.dialog_cancelar_ejercicio, null);
+            builder.setView(dialogView);
+
+            AlertDialog alertDialog = builder.create();
+
+            Button btnAceptar = dialogView.findViewById(R.id.btnAceptarDialog);
+            Button btnCancelar = dialogView.findViewById(R.id.btnCancelarDialog);
+
+            btnAceptar.setOnClickListener(view -> {
+                Toast.makeText(ExerciseActivity.this, "Ejercicio y entrenamiento cancelados", Toast.LENGTH_SHORT).show();
+                alertDialog.dismiss();
+                finish(); // Finaliza la actividad actualz
+            });
+
+            btnCancelar.setOnClickListener(view -> alertDialog.dismiss());
+
+            alertDialog.show();
+        });
+        // Listener para botón AYUDA
+        btnHelp.setOnClickListener(v -> {
+            Intent intent = new Intent(ExerciseActivity.this, AyudaActivity.class);
+            startActivity(intent);
         });
 
         ejercicios = getIntent().getParcelableArrayListExtra("ejercicios");

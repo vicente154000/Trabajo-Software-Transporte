@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/dark_background"
+    android:padding="16dp"
+    tools:context=".AyudaActivity">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/textViewInstrucciones"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="INSTRUCCIONES"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_white"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp" />
+
+    <!-- Instructions Body -->
+    <TextView
+        android:id="@+id/textViewExplicacion"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Trata de realizar el ejercicio de la siguiente imagen."
+        android:textSize="16sp"
+        android:textColor="@color/text_white"
+        android:textAlignment="center"
+        app:layout_constraintTop_toBottomOf="@id/textViewInstrucciones"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- Illustration -->
+    <ImageView
+        android:id="@+id/imageViewInstruccion"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintTop_toBottomOf="@id/textViewExplicacion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.35"
+        android:layout_marginTop="24dp"
+        android:contentDescription="@string/logo"
+        android:src="@drawable/instruccion"
+    />
+    <!-- Back Button -->
+    <Button
+        android:id="@+id/buttonAtrasAyuda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Volver"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/imageViewInstruccion"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

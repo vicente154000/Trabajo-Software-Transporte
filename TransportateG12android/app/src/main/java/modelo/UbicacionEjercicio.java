@@ -34,5 +34,4 @@ public class UbicacionEjercicio {
         this.idEjercicio = idEjercicio;
     }
 
-
 }

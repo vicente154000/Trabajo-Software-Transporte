@@ -25,6 +25,7 @@ public class IntensityActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     ActionBarDrawerToggle toggle;
+    String nombreUsuario; // Para trackear al usuario.
     Button btnAlta, btnMedia, btnBaja;
     ListaEjercicioEntrenamiento listaEjercicioEntrenamiento = new ListaEjercicioEntrenamiento("PZhlOWsdhQur0CyiDdUTnjofkAnKCFu6tJyymCpM", "plmowUHRNjWQ5tCW85rr26EWeu3RW44c6lAJAgGe");
 
@@ -46,15 +47,24 @@ public class IntensityActivity extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
+        nombreUsuario = getIntent().getStringExtra("nombreUsuario");
         //Menú lateral
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_progreso) {
-                Toast.makeText(this, "Mi progreso", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(IntensityActivity.this, ProgresoActivity.class);
+                intent.putExtra("nombreUsuario", nombreUsuario);
+                startActivity(intent);
             } else if (id == R.id.nav_usuario) {
-                Toast.makeText(this, "Usuario", Toast.LENGTH_SHORT).show();
+                // Go to UsuarioActivity, passing the username
+                Intent intent = new Intent(IntensityActivity.this, UsuarioActivity.class);
+                intent.putExtra("nombreUsuario", nombreUsuario);
+                startActivityForResult(intent, 1);
             } else if (id == R.id.nav_estadisticas) {
-                Toast.makeText(this, "Estadísticas", Toast.LENGTH_SHORT).show();
+                // Go to EstadisticasActivity, passing the username
+                Intent intent = new Intent(IntensityActivity.this, EstadisticasActivity.class);
+                intent.putExtra("nombreUsuario", nombreUsuario);
+                startActivity(intent);
             }
             drawerLayout.closeDrawers();
             return true;
@@ -65,39 +75,25 @@ public class IntensityActivity extends AppCompatActivity {
         btnMedia = findViewById(R.id.btnMedia);
         btnBaja = findViewById(R.id.btnBaja);
 
-        btnAlta.setOnClickListener(v -> {
-            Intent intent = new Intent(IntensityActivity.this, ExerciseActivity.class);
-            System.out.println("FGAL^DKFSHA^DOHASÔDHASOI^D");
+        btnAlta.setOnClickListener(v -> launchExercise("alta"));
+        btnMedia.setOnClickListener(v -> launchExercise("media"));
+        btnBaja.setOnClickListener(v -> launchExercise("baja"));
+    }
 
-            Entrenamiento entrenamientoSeleccionado = entrenamientoNegocio.obtenerEntrenamientoAleatorioPorTipo("alta");
+    private void launchExercise(String tipoIntensidad) {
+        Intent intent = new Intent(IntensityActivity.this, ExerciseActivity.class);
+        Entrenamiento entrenamiento = entrenamientoNegocio.obtenerEntrenamientoAleatorioPorTipo(tipoIntensidad);
+        List<Ejercicio> ejercicios = listaEjercicioEntrenamiento.getEjerciciosDeUnEntrenamiento(entrenamiento.getId());
+        intent.putParcelableArrayListExtra("ejercicios", new ArrayList<>(ejercicios));
+        startActivity(intent);
+    }
 
-            List<Ejercicio> ejercicios = listaEjercicioEntrenamiento.getEjerciciosDeUnEntrenamiento(entrenamientoSeleccionado.getId());
-            ArrayList<Ejercicio> listaEjercicios = new ArrayList<>(ejercicios);
-
-            intent.putParcelableArrayListExtra("ejercicios", listaEjercicios);
-            startActivity(intent);
-        });
-
-        btnMedia.setOnClickListener(v -> {
-            Intent intent = new Intent(IntensityActivity.this, ExerciseActivity.class);
-            Entrenamiento entrenamientoSeleccionado = entrenamientoNegocio.obtenerEntrenamientoAleatorioPorTipo("media");
-
-            List<Ejercicio> ejercicios = listaEjercicioEntrenamiento.getEjerciciosDeUnEntrenamiento(entrenamientoSeleccionado.getId());
-            ArrayList<Ejercicio> listaEjercicios = new ArrayList<>(ejercicios);
-
-            intent.putParcelableArrayListExtra("ejercicios", listaEjercicios);
-            startActivity(intent);
-        });
-
-        btnBaja.setOnClickListener(v -> {
-            Intent intent = new Intent(IntensityActivity.this, ExerciseActivity.class);
-            Entrenamiento entrenamientoSeleccionado = entrenamientoNegocio.obtenerEntrenamientoAleatorioPorTipo("baja");
-
-            List<Ejercicio> ejercicios = listaEjercicioEntrenamiento.getEjerciciosDeUnEntrenamiento(entrenamientoSeleccionado.getId());
-            ArrayList<Ejercicio> listaEjercicios = new ArrayList<>(ejercicios);
-
-            intent.putParcelableArrayListExtra("ejercicios", listaEjercicios);
-            startActivity(intent);
-        });
+    // Actualizamos el nombre (ya que nos identifica, es importante).
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            nombreUsuario = data.getStringExtra("nombreUsuario");
+        }
     }
 }

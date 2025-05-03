@@ -2,11 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.aplicacion">
-
     <!-- Permisos necesarios -->
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -22,37 +22,43 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:targetApi="31">
-
-        <!-- Actividad principal -->
+        <activity
+            android:name=".ProgresoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProgresoActivty"
+            android:exported="false" />
+        <activity
+            android:name=".AyudaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EstadisticasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UsuarioActivity"
+            android:exported="false" /> <!-- Actividad principal -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Pantalla de ejercicio -->
+        </activity> <!-- Pantalla de ejercicio -->
         <activity
             android:name=".ExerciseActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
-
-        <!-- Pantalla para grabar video -->
+            android:theme="@style/AppTheme" /> <!-- Pantalla para grabar video -->
         <activity
             android:name=".CamaraActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
-
-        <!-- Pantalla de intensidad (si la usas) -->
+            android:theme="@style/AppTheme" /> <!-- Pantalla de intensidad (si la usas) -->
         <activity
             android:name=".IntensityActivity"
             android:exported="false"
-            android:theme="@style/AppTheme"/>
-
-        <!-- FileProvider para compartir archivos con la cámara -->
+            android:theme="@style/AppTheme" /> <!-- FileProvider para compartir archivos con la cámara -->
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
@@ -62,7 +68,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

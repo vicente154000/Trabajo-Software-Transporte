@@ -44,4 +44,5 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp")
     implementation("com.squareup.okhttp3:logging-interceptor")
     implementation("com.google.code.gson:gson:2.8.8")
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 }
