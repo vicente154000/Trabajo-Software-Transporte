@@ -188,6 +188,7 @@ public class ListaEjercicioEntrenamiento implements ListaEjercicioEntrenamientoI
         return relacionados;
     }
 
+    @Override
     public List<Ejercicio> getEjerciciosDeUnEntrenamiento(String entrenamientoId) {
         ListaEjercicioEntrenamiento relacionDao = new ListaEjercicioEntrenamiento(APPLICATION_ID, REST_API_KEY);
         ListaEjercicios ejercicioDao = new ListaEjercicios(APPLICATION_ID, REST_API_KEY);

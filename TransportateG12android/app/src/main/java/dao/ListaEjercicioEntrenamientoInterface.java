@@ -5,6 +5,8 @@
 package dao;
 
 import java.util.List;
+
+import modelo.Ejercicio;
 import modelo.EjercicioEntrenamiento;
 
 /**
@@ -19,4 +21,6 @@ public interface ListaEjercicioEntrenamientoInterface {
     public void updatejercicioEntrenamiento(EjercicioEntrenamiento ejercicioEntrenamiento);
     
     public List<EjercicioEntrenamiento> getAllEjercicioEntrenamiento();
+
+    public List<Ejercicio> getEjerciciosDeUnEntrenamiento(String entrenamientoId);
 }

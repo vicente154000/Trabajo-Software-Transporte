@@ -27,12 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // LLamadas de red
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                .permitAll()
-                .build();
-        StrictMode.setThreadPolicy(policy);
-
         nameInput = findViewById(R.id.nameInput);
         loginButton = findViewById(R.id.loginButton);
         listaUsuarios = new ListaUsuarios("PZhlOWsdhQur0CyiDdUTnjofkAnKCFu6tJyymCpM", "plmowUHRNjWQ5tCW85rr26EWeu3RW44c6lAJAgGe");

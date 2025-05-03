@@ -1,10 +1,8 @@
 package com.example.aplicacion;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Button;
-import android.widget.Toast;
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -14,11 +12,9 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.List;
 import java.util.ArrayList;
 
-import dao.ListaEjercicioEntrenamiento;
-import dao.ListaEntrenamientos;
 import modelo.Ejercicio;
 import modelo.Entrenamiento;
-import negocio.EntrenamientoNegocio;
+import services.EntrenamientoService;
 
 public class IntensityActivity extends AppCompatActivity {
 
@@ -27,14 +23,14 @@ public class IntensityActivity extends AppCompatActivity {
     ActionBarDrawerToggle toggle;
     String nombreUsuario; // Para trackear al usuario.
     Button btnAlta, btnMedia, btnBaja;
-    ListaEjercicioEntrenamiento listaEjercicioEntrenamiento = new ListaEjercicioEntrenamiento("PZhlOWsdhQur0CyiDdUTnjofkAnKCFu6tJyymCpM", "plmowUHRNjWQ5tCW85rr26EWeu3RW44c6lAJAgGe");
-
-    EntrenamientoNegocio entrenamientoNegocio = new EntrenamientoNegocio(new ListaEntrenamientos("PZhlOWsdhQur0CyiDdUTnjofkAnKCFu6tJyymCpM", "plmowUHRNjWQ5tCW85rr26EWeu3RW44c6lAJAgGe"));
+    EntrenamientoService entrenamientoService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intensity);
+
+        this.entrenamientoService = ((LayerApplication)getApplicationContext()).getEntrenamientosService();
 
         //Drawer
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -82,8 +78,8 @@ public class IntensityActivity extends AppCompatActivity {
 
     private void launchExercise(String tipoIntensidad) {
         Intent intent = new Intent(IntensityActivity.this, ExerciseActivity.class);
-        Entrenamiento entrenamiento = entrenamientoNegocio.obtenerEntrenamientoAleatorioPorTipo(tipoIntensidad);
-        List<Ejercicio> ejercicios = listaEjercicioEntrenamiento.getEjerciciosDeUnEntrenamiento(entrenamiento.getId());
+        Entrenamiento entrenamiento = entrenamientoService.obtenerEntrenamientoAleatorioPorTipo(tipoIntensidad);
+        List<Ejercicio> ejercicios = entrenamientoService.obtenerEjerciciosPorEntrenamiento(entrenamiento);
         intent.putParcelableArrayListExtra("ejercicios", new ArrayList<>(ejercicios));
         startActivity(intent);
     }
