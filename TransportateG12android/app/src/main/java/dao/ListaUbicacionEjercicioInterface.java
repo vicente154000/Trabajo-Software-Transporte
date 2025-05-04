@@ -19,4 +19,6 @@ public interface ListaUbicacionEjercicioInterface {
     public void deleteUbicacionEjercicio(UbicacionEjercicio ubicacionEjercicio);
     
     public void updateUbicacionEjercicio(UbicacionEjercicio ubicacionEjercicio);
+
+    public UbicacionEjercicio getUbicacionPorEjercicio(String ejercicioId);
 }

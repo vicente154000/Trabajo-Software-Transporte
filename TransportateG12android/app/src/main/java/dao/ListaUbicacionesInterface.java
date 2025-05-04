@@ -19,4 +19,6 @@ public interface ListaUbicacionesInterface {
     public void deleteUbicacion(Ubicacion ubicacion);
     
     public void updateUbicacion(Ubicacion ubicacion);
+
+    public Ubicacion getUbicacionPorId(String idUbicacion);
 }

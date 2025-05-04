@@ -11,11 +11,15 @@ import dao.ListaEntrenamientos;
 import dao.ListaEntrenamientosInterface;
 import dao.ListaUbicacionEjercicio;
 import dao.ListaUbicacionEjercicioInterface;
+import dao.ListaUbicaciones;
+import dao.ListaUbicacionesInterface;
 import dao.ListaUsuarioEntrenamiento;
 import dao.ListaUsuarioEntrenamientoInterface;
 import dao.ListaUsuarios;
 import dao.ListaUsuariosInterface;
 import services.EntrenamientoService;
+import services.UbicacionService;
+import services.UsuarioService;
 
 public class LayerApplication extends Application {
 
@@ -27,13 +31,10 @@ public class LayerApplication extends Application {
     private ListaUbicacionEjercicioInterface listaUbicacionEjercicio;
     private ListaUsuarioEntrenamientoInterface listaUsuarioEntrenamiento;
     private ListaUsuariosInterface listaUsuarios;
+    private ListaUbicacionesInterface listaUbicaciones;
     @Override
     public void onCreate() {
         super.onCreate();
-        StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder()
-                .permitAll()
-                .build();
-        StrictMode.setThreadPolicy(gfgPolicy);
 
         this.listaEntrenamientos = new ListaEntrenamientos(APP_ID, CLIENT_KEY);
         this.listaEjercicioEntrenamiento = new ListaEjercicioEntrenamiento(APP_ID, CLIENT_KEY);
@@ -41,9 +42,18 @@ public class LayerApplication extends Application {
         this.listaUbicacionEjercicio = new ListaUbicacionEjercicio(APP_ID, CLIENT_KEY);
         this.listaUsuarioEntrenamiento = new ListaUsuarioEntrenamiento(APP_ID, CLIENT_KEY);
         this.listaUsuarios = new ListaUsuarios(APP_ID, CLIENT_KEY);
+        this.listaUbicaciones = new ListaUbicaciones(APP_ID, CLIENT_KEY);
     }
 
     public EntrenamientoService getEntrenamientosService() {
-        return new EntrenamientoService(listaEntrenamientos, listaEjercicioEntrenamiento);
+        return new EntrenamientoService(listaEntrenamientos, listaEjercicioEntrenamiento, listaEjercicios);
+    }
+
+    public UbicacionService getUbicacionService() {
+        return new UbicacionService(listaUbicaciones, listaUbicacionEjercicio);
+    }
+
+    public UsuarioService getUsuarioService() {
+        return new UsuarioService(listaUsuarios, listaUsuarioEntrenamiento);
     }
 }

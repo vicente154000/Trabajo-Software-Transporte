@@ -45,4 +45,9 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor")
     implementation("com.google.code.gson:gson:2.8.8")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    implementation("org.osmdroid:osmdroid-android:6.1.16")
+    implementation("org.osmdroid:osmdroid-wms:6.1.16")
+    implementation("org.osmdroid:osmdroid-mapsforge:6.1.16") // optional for offline maps
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 }

@@ -23,14 +23,11 @@ public class IntensityActivity extends AppCompatActivity {
     ActionBarDrawerToggle toggle;
     String nombreUsuario; // Para trackear al usuario.
     Button btnAlta, btnMedia, btnBaja;
-    EntrenamientoService entrenamientoService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intensity);
-
-        this.entrenamientoService = ((LayerApplication)getApplicationContext()).getEntrenamientosService();
 
         //Drawer
         drawerLayout = findViewById(R.id.drawerLayout);
@@ -78,9 +75,7 @@ public class IntensityActivity extends AppCompatActivity {
 
     private void launchExercise(String tipoIntensidad) {
         Intent intent = new Intent(IntensityActivity.this, ExerciseActivity.class);
-        Entrenamiento entrenamiento = entrenamientoService.obtenerEntrenamientoAleatorioPorTipo(tipoIntensidad);
-        List<Ejercicio> ejercicios = entrenamientoService.obtenerEjerciciosPorEntrenamiento(entrenamiento);
-        intent.putParcelableArrayListExtra("ejercicios", new ArrayList<>(ejercicios));
+        intent.putExtra("intensidad", tipoIntensidad);
         startActivity(intent);
     }
 

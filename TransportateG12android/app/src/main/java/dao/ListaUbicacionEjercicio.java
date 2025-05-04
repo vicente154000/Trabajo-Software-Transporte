@@ -12,6 +12,9 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import modelo.EjercicioEntrenamiento;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -148,5 +151,47 @@ public class ListaUbicacionEjercicio implements ListaUbicacionEjercicioInterface
             System.out.println(e.getMessage());
         }
     }
-    
+
+    @Override
+    public UbicacionEjercicio getUbicacionPorEjercicio(String ejercicioId) {
+        UbicacionEjercicio ubicacionEjercicio = null;
+
+        System.out.println("Ejercicio ID: " + ejercicioId);
+
+        try {
+            HttpUrl.Builder urlBuilder = HttpUrl.parse(API_URL).newBuilder();
+            JsonObject where = new JsonObject();
+            where.addProperty("idEjercicio", ejercicioId);
+            urlBuilder.addQueryParameter("where", where.toString());
+
+            Request request = new Request.Builder()
+                    .url(urlBuilder.build().toString())
+                    .addHeader("X-Parse-Application-Id", APPLICATION_ID)
+                    .addHeader("X-Parse-REST-API-Key", REST_API_KEY)
+                    .get()
+                    .build();
+
+            OkHttpClient client = new OkHttpClient();
+            Response response = client.newCall(request).execute();
+
+            if (response.isSuccessful()) {
+                String responseJson = response.body().string();
+                System.out.println("Respuesta JSON del servidor: " + responseJson);
+                JsonObject jsonObject = new Gson().fromJson(responseJson, JsonObject.class);
+                JsonArray jsonArray = jsonObject.getAsJsonArray("results");
+
+                if (jsonArray.size() > 0) {
+                    ubicacionEjercicio = new Gson().fromJson(jsonArray.get(0), UbicacionEjercicio.class);
+                }
+            } else {
+                System.out.println("Error al buscar UbicacionEjercicio: " + response.code());
+            }
+        } catch (IOException e) {
+            System.out.println("Error de conexión: " + e.getMessage());
+        }
+
+        System.out.println("UbicacionEjercicio: " + ubicacionEjercicio);
+
+        return ubicacionEjercicio;
+    }
 }

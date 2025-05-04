@@ -2,6 +2,8 @@ package com.example.aplicacion;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -13,23 +15,33 @@ import dao.ListaEjercicioEntrenamiento;
 import dao.ListaUsuarios;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import dao.ListaUsuarios;
 import modelo.Usuario;
+import services.UbicacionService;
+import services.UsuarioService;
 
 public class MainActivity extends AppCompatActivity {
     private EditText nameInput;
     private Button loginButton;
-    private ListaUsuarios listaUsuarios;
+    private UsuarioService usuarioService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        this.usuarioService = ((LayerApplication)getApplicationContext()).getUsuarioService();
+
+        StrictMode.ThreadPolicy gfgPolicy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll()
+                .build();
+        StrictMode.setThreadPolicy(gfgPolicy);
+
         nameInput = findViewById(R.id.nameInput);
         loginButton = findViewById(R.id.loginButton);
-        listaUsuarios = new ListaUsuarios("PZhlOWsdhQur0CyiDdUTnjofkAnKCFu6tJyymCpM", "plmowUHRNjWQ5tCW85rr26EWeu3RW44c6lAJAgGe");
 
         loginButton.setOnClickListener(v -> {
             String name = nameInput.getText().toString().trim();
@@ -41,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             // Conseguimos los usuarios de Back4App
-            List<Usuario> usuarios = listaUsuarios.getListaUsuarios();
+            List<Usuario> usuarios = usuarioService.getListaUsuarios();
 
             // Vemos si existe el usuario
             boolean userExists = false;
@@ -55,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             // Si no existe, creamos el usuario
             if (!userExists) {
                 Usuario newUser = new Usuario(name, "", "", 0, 0, 0);
-                String objectId = listaUsuarios.addUsuario(newUser);
+                String objectId = usuarioService.addUsuario(newUser);
                 newUser.setId(objectId);
             }
 

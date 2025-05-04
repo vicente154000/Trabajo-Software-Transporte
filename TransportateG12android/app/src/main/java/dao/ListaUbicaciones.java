@@ -150,5 +150,37 @@ public class ListaUbicaciones implements ListaUbicacionesInterface{
             System.out.println(e.getMessage());
         }
     }
+
+    @Override
+    public Ubicacion getUbicacionPorId(String idUbicacion) {
+        Ubicacion ubicacion = null;
+        System.out.println("ID Ubicacion: " + idUbicacion);
+        try {
+            Request request = new Request.Builder()
+                    .url(API_URL + "/" + idUbicacion)
+                    .addHeader("X-Parse-Application-Id", APPLICATION_ID)
+                    .addHeader("X-Parse-REST-API-Key", REST_API_KEY)
+                    .get()
+                    .build();
+
+            OkHttpClient client = new OkHttpClient();
+            Response response = client.newCall(request).execute();
+
+            if (response.isSuccessful()) {
+                String responseJson = response.body().string();
+                // Asegúrate de que el JSON se deserializa correctamente
+                ubicacion = new Gson().fromJson(responseJson, Ubicacion.class);
+                if (ubicacion == null) {
+                    System.out.println("La ubicación no se pudo deserializar correctamente.");
+                }
+            } else {
+                // Muestra el código de respuesta si no es exitoso
+                System.out.println("Error al obtener la ubicación: " + response.code());
+            }
+        } catch (IOException e) {
+            System.out.println("Error de conexión: " + e.getMessage());
+        }
+        return ubicacion;
+    }
     
 }
