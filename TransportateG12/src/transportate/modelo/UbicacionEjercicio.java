@@ -13,7 +13,7 @@ public class UbicacionEjercicio {
     private String idUbicacion;
     private String idEjercicio;
     
-    public UbicacionEjercicio(String idUbicacion, String idEjercicio){
+    public UbicacionEjercicio(String idEjercicio, String idUbicacion){
         this.idUbicacion = idUbicacion;
         this.idEjercicio = idEjercicio;
     }

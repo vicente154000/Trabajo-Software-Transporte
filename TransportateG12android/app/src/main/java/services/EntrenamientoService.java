@@ -1,20 +1,25 @@
 package services;
 
 import dao.ListaEjercicioEntrenamientoInterface;
+import dao.ListaEjerciciosInterface;
 import dao.ListaEntrenamientosInterface;
 import modelo.Ejercicio;
+import modelo.EjercicioEntrenamiento;
 import modelo.Entrenamiento;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class EntrenamientoService {
     private ListaEntrenamientosInterface listaEntrenamientos;
     private ListaEjercicioEntrenamientoInterface listaEjercicioEntrenamiento;
+    private ListaEjerciciosInterface listaEjercicios;
 
 
-    public EntrenamientoService(ListaEntrenamientosInterface listaEntrenamientos, ListaEjercicioEntrenamientoInterface listaEjercicioEntrenamiento) {
+    public EntrenamientoService(ListaEntrenamientosInterface listaEntrenamientos, ListaEjercicioEntrenamientoInterface listaEjercicioEntrenamiento, ListaEjerciciosInterface listaEjercicios) {
         this.listaEntrenamientos = listaEntrenamientos;
         this.listaEjercicioEntrenamiento = listaEjercicioEntrenamiento;
+        this.listaEjercicios = listaEjercicios;
     }
 
     public Entrenamiento obtenerEntrenamientoAleatorioPorTipo(String tipoIntensidad) {
@@ -34,6 +39,14 @@ public class EntrenamientoService {
     }
 
     public List<Ejercicio> obtenerEjerciciosPorEntrenamiento(Entrenamiento entrenamiento) {
-        return listaEjercicioEntrenamiento.getEjerciciosDeUnEntrenamiento(entrenamiento.getId());
+        List<EjercicioEntrenamiento> ejerciciosEntrenamiento = listaEjercicioEntrenamiento.getEjerciciosPorEntrenamiento(entrenamiento.getId());
+        List<Ejercicio> ejercicios = new ArrayList<>();
+        for (EjercicioEntrenamiento ejercicioEntrenamiento : ejerciciosEntrenamiento) {
+            Ejercicio ejercicio = listaEjercicios.getEjercicioPorId(ejercicioEntrenamiento.getEjercicioId());
+            if (ejercicio != null) {
+                ejercicios.add(ejercicio);
+            }
+        }
+        return ejercicios;
     }
 }

@@ -22,5 +22,5 @@ public interface ListaEjercicioEntrenamientoInterface {
     
     public List<EjercicioEntrenamiento> getAllEjercicioEntrenamiento();
 
-    public List<Ejercicio> getEjerciciosDeUnEntrenamiento(String entrenamientoId);
+    public List<EjercicioEntrenamiento> getEjerciciosPorEntrenamiento(String entrenamientoId);
 }

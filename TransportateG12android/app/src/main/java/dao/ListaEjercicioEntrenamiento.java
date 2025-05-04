@@ -151,7 +151,8 @@ public class ListaEjercicioEntrenamiento implements ListaEjercicioEntrenamientoI
 
         return listaEjercicioEntrenamiento;
     }
-    
+
+    @Override
     public List<EjercicioEntrenamiento> getEjerciciosPorEntrenamiento(String entrenamientoId) {
         List<EjercicioEntrenamiento> relacionados = new ArrayList<>();
 
@@ -186,24 +187,6 @@ public class ListaEjercicioEntrenamiento implements ListaEjercicioEntrenamientoI
         }
 
         return relacionados;
-    }
-
-    @Override
-    public List<Ejercicio> getEjerciciosDeUnEntrenamiento(String entrenamientoId) {
-        ListaEjercicioEntrenamiento relacionDao = new ListaEjercicioEntrenamiento(APPLICATION_ID, REST_API_KEY);
-        ListaEjercicios ejercicioDao = new ListaEjercicios(APPLICATION_ID, REST_API_KEY);
-
-        List<EjercicioEntrenamiento> relaciones = relacionDao.getEjerciciosPorEntrenamiento(entrenamientoId);
-        List<Ejercicio> ejercicios = new ArrayList<>();
-
-        for (EjercicioEntrenamiento rel : relaciones) {
-            Ejercicio ejercicio = ejercicioDao.getEjercicioPorId(rel.getEjercicioId());
-            if (ejercicio != null) {
-                ejercicios.add(ejercicio);
-            }
-        }
-
-        return ejercicios;
     }
     
 }
