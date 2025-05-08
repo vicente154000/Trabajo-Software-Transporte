@@ -2,16 +2,19 @@ package transportate.controlador;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.List;
 import javax.swing.JOptionPane;
 import transportate.dao.ListaEjercicioEntrenamiento;
 import transportate.dao.ListaEjerciciosInterface;
 import transportate.dao.ListaEntrenamientosInterface;
+import transportate.dao.ListaImagenEjercicioInterface;
 import transportate.dao.ListaUbicacionEjercicioInterface;
 import transportate.dao.ListaUbicaciones;
 import transportate.dao.ListaUbicacionesInterface;
 import transportate.modelo.Ejercicio;
 import transportate.modelo.Entrenamiento;
+import transportate.modelo.FileResource;
 import transportate.modelo.Ubicacion;
 import transportate.modelo.UbicacionEjercicio;
 import transportate.vista.EditarEjerciciosDialog;
@@ -29,6 +32,7 @@ public class AppControlador {
     private ListaEjercicioEntrenamiento listaEjercicioEntrenamientoDAO;
     private ListaUbicacionesInterface listaUbicacionesDAO;
     private ListaUbicacionEjercicioInterface listaUbicacionEjercicioDAO;
+    private ListaImagenEjercicioInterface listaImagenEjercicioDAO;
 
     private VistaPrincipal vistaPrincipal;
     private EjerciciosVista ejerciciosVista;
@@ -44,13 +48,15 @@ public class AppControlador {
         ListaEjercicioEntrenamiento listaEjercicioEntrenamientoDAO,
         ListaUbicaciones listaUbicacionesDAO,
         UbicacionesVista ubicacionesVista,
-        ListaUbicacionEjercicioInterface listaUbicacionEjercicioDAO 
+        ListaUbicacionEjercicioInterface listaUbicacionEjercicioDAO,
+        ListaImagenEjercicioInterface listaImagenEjercicioDAO
     ) {
         this.listaEjerciciosDAO = listaEjerciciosDAO;
         this.listaEntrenamientosDAO = listaEntrenamientosDAO;
         this.listaEjercicioEntrenamientoDAO = listaEjercicioEntrenamientoDAO;
         this.listaUbicacionesDAO = listaUbicacionesDAO;
         this.listaUbicacionEjercicioDAO = listaUbicacionEjercicioDAO;
+        this.listaImagenEjercicioDAO = listaImagenEjercicioDAO;
 
         this.vistaPrincipal = vistaPrincipal;
         this.ejerciciosVista = ejerciciosVista;
@@ -76,8 +82,25 @@ public class AppControlador {
 
                 Ejercicio nuevo = dialog.getEjercicioCreado();
                 Ubicacion ubicacionSeleccionada = dialog.getUbicacionSeleccionada();
+                File imagen = dialog.getImagenSeleccionada();
+
+                if (imagen != null) {
+                    System.out.println("Upload: " + imagen.getName());
+                    FileResource recurso = listaImagenEjercicioDAO.upload(imagen, imagen.getName());
+
+                    if (recurso != null && recurso.url != null) {
+                        nuevo.setImagen(recurso.url);
+                    } else {
+                        JOptionPane.showMessageDialog(vistaPrincipal, "Error al subir la imagen.", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                }
+                else{
+                    System.out.println("Imagen nula");
+                }
 
                 if (nuevo != null && ubicacionSeleccionada != null) {
+                    System.out.println("URL: " + nuevo.getImagen());
                     String ejercicioId = listaEjerciciosDAO.addEjercicio(nuevo);
                     if (!ejercicioId.isEmpty()) {
                         UbicacionEjercicio relacion = new UbicacionEjercicio(ejercicioId, ubicacionSeleccionada.getId());

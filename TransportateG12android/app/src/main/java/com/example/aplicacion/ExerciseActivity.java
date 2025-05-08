@@ -120,7 +120,14 @@ public class ExerciseActivity extends AppCompatActivity {
         });
         // Listener para botón AYUDA
         btnHelp.setOnClickListener(v -> {
+            modelo.Ejercicio ejercicio = ejercicios.get(ejercicioActual);
+            System.out.println("Ejercicio actual: " + ejercicio.getNombre());
+            System.out.println("URL de la imagen: " + ejercicio.getImagen());
+            String imageURL = ejercicio.getImagen();
+
             Intent intent = new Intent(ExerciseActivity.this, AyudaActivity.class);
+            intent.putExtra("imageURL", imageURL);
+
             startActivity(intent);
         });
 

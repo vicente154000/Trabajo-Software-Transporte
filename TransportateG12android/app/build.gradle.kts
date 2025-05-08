@@ -50,4 +50,5 @@ dependencies {
     implementation("org.osmdroid:osmdroid-wms:6.1.16")
     implementation("org.osmdroid:osmdroid-mapsforge:6.1.16") // optional for offline maps
     implementation("com.google.android.gms:play-services-location:21.0.1")
+    implementation ("com.github.bumptech.glide:glide:4.14.2");
 }

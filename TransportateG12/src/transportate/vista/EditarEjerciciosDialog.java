@@ -1,4 +1,4 @@
-package transportate.vista;
+    package transportate.vista;
 
 import transportate.modelo.*;
 import transportate.dao.*;

@@ -23,8 +23,8 @@ import services.UsuarioService;
 
 public class LayerApplication extends Application {
 
-    private static final String APP_ID = "PZhlOWsdhQur0CyiDdUTnjofkAnKCFu6tJyymCpM";
-    private static final String CLIENT_KEY = "plmowUHRNjWQ5tCW85rr26EWeu3RW44c6lAJAgGe";
+    private static final String APP_ID = "zyil9FTR6dHvZuZ57QGSKOFbLIGaWv9FqFMHPuWE";
+    private static final String CLIENT_KEY = "UgCjCbEwJBQxcvUn4z5Plx6iDdeLHbHVsI7EOlDc";
     private ListaEntrenamientosInterface listaEntrenamientos;
     private ListaEjercicioEntrenamientoInterface listaEjercicioEntrenamiento;
     private ListaEjerciciosInterface listaEjercicios;

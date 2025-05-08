@@ -1,8 +1,6 @@
 package modelo;
 import android.os.Parcelable;
 
-import modelo.Ubicacion;
-
 public class Ejercicio implements Parcelable {
 
     private String objectId;
@@ -11,6 +9,7 @@ public class Ejercicio implements Parcelable {
     private int duracion;
     private int intensidad;
     private String nombreUbicacion;
+    private String URLimagen;
 
     // Constructor
     public Ejercicio(String nombre, String descripcion, int duracion, int intensidad, String nombreUbicacion) {
@@ -65,6 +64,9 @@ public class Ejercicio implements Parcelable {
     public int getDuracion() { return duracion; }
     public int getIntensidad() { return intensidad; }
     public String getUbicacion() { return nombreUbicacion; }
+    public String getImagen() {
+        return URLimagen;
+    }
 
     //Setter
     public void setId(String id) { this.objectId = id; }
@@ -73,6 +75,10 @@ public class Ejercicio implements Parcelable {
     public void setDuracion(int duracion) { this.duracion = duracion; }
     public void setIntensidad(int intensidad) { this.intensidad = intensidad; }
     public void setUbicacion(String nombreUbicacion) { this.nombreUbicacion = nombreUbicacion; }
+    public void setImagen(String imagenEjercicio) {
+        this.URLimagen = imagenEjercicio;
+    }
+
 
     @Override
     public String toString() {
