@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#121212"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        tools:context=".EstadisticasActivity">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/textViewTitlePie"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Distribución de entrenamientos por intensidad"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Pie Chart (slightly smaller) -->
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/textViewTitlePie"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.24" />
+
+        <!-- Bar Chart Label -->
+        <TextView
+            android:id="@+id/textViewBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Número de entrenamientos por intensidad"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/pieChart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <!-- Bar Chart -->
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/textViewBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.28" />
+
+        <!-- Line Chart Label -->
+        <TextView
+            android:id="@+id/textViewLine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Evolución de la duración de cada entrenamiento."
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            app:layout_constraintTop_toBottomOf="@id/barChart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp" />
+
+        <!-- Line Chart -->
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/lineChart"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/textViewLine"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.28" />
+
+        <!-- Back Button at end -->
+        <Button
+            android:id="@+id/buttonVolverEstadisticas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Volver"
+            android:onClick="onVolverClick"
+            app:layout_constraintTop_toBottomOf="@id/lineChart"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="24dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

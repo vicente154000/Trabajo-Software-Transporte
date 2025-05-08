@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="24dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Botón ayuda (bombilla) -->
+        <ImageButton
+            android:id="@+id/btnHelp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/baseline_lightbulb_24"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/ayuda"
+            android:layout_margin="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Separador -->
+        <View
+            android:id="@+id/separatorBar"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/text_white"
+            app:layout_constraintTop_toBottomOf="@id/btnHelp" />
+
+        <!-- Mensaje principal -->
+        <TextView
+            android:id="@+id/tvWarning"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/text_principal_warning"
+            android:textAlignment="center"
+            android:textColor="@color/text_white"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/separatorBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Botones Cámara y GPS -->
+        <LinearLayout
+            android:id="@+id/iconButtons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@id/tvWarning"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <Button
+                android:id="@+id/btnCamera"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:drawablePadding="8dp"
+                android:text="@string/camara" />
+
+            <Button
+                android:id="@+id/btnGps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:text="@string/gps" />
+        </LinearLayout>
+
+        <!-- Nombre del ejercicio -->
+        <TextView
+            android:id="@+id/labelNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre:"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/iconButtons"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="32dp" />
+
+        <TextView
+            android:id="@+id/nombreEjercicio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Flexiones"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:layout_marginStart="12dp"
+            app:layout_constraintStart_toEndOf="@id/labelNombre"
+            app:layout_constraintBaseline_toBaselineOf="@id/labelNombre"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Descripción -->
+        <TextView
+            android:id="@+id/labelDescripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripción:"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/labelNombre"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="32dp" />
+
+        <TextView
+            android:id="@+id/descripcionEjercicio"
+            android:layout_width="0dp"
+            android:layout_height="120dp"
+            android:background="@android:color/white"
+            android:padding="12dp"
+            android:text="Ejercicio de fuerza para trabajar el tren superior"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/labelDescripcion"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp" />
+
+        <!-- Botones Empezar / Completar -->
+        <LinearLayout
+            android:id="@+id/buttonsContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="32dp"
+            app:layout_constraintTop_toBottomOf="@id/descripcionEjercicio"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <Button
+                android:id="@+id/btnStart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empezar"
+                android:textSize="16sp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/colorBotonPrincipal"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/btnComplete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/completar"
+                android:textSize="16sp"
+                android:backgroundTint="@color/colorBotonPrincipal"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <!-- Botón Cancelar -->
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancelar_ejercicio"
+            android:textSize="16sp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"
+            android:backgroundTint="@color/colorCancelar"
+            android:textColor="@android:color/white"
+            app:layout_constraintTop_toBottomOf="@id/buttonsContainer"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
