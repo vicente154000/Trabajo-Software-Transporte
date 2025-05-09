@@ -57,6 +57,11 @@ public class ExerciseActivity extends AppCompatActivity {
 
         //Listener para botón Cámara
         btnCamera.setOnClickListener(v -> {
+            if (!ejercicioEmpezado) {
+                Toast.makeText(this, "Primero debes empezar el ejercicio", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             Intent intent = new Intent(this, CamaraActivity.class);
             startActivityForResult(intent, REQUEST_CAMARA);
         });

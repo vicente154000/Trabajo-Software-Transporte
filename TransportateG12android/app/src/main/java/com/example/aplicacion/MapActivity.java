@@ -1,9 +1,12 @@
 package com.example.aplicacion;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.Manifest;
 
@@ -13,6 +16,7 @@ import androidx.core.content.ContextCompat;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.provider.Settings;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -65,28 +69,45 @@ public class MapActivity extends AppCompatActivity {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         if (checkAndRequestLocationPermissions()) {
-            setupLocationTracking();
+            checkLocationEnabled();
         }
 
         addDestinationMarker();
     }
 
-    private void addDestinationMarker() {
-        mapView.getOverlays().removeIf(overlay -> overlay instanceof Marker &&
-                "dest".equals(((Marker) overlay).getId()));
+    private void checkLocationEnabled() {
+        LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean gpsEnabled = false;
+        boolean networkEnabled = false;
 
-        Marker destinationMarker = new Marker(mapView);
-        destinationMarker.setPosition(new GeoPoint(lat_destino, lon_destino));
-        destinationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        destinationMarker.setTitle("Siguiente Ubicación");
-        destinationMarker.setSnippet(nombre_destino);
-        destinationMarker.setId("dest");
+        try {
+            gpsEnabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch (Exception ex) {}
 
-        // Customize appearance
-        destinationMarker.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_destination_pin));
+        try {
+            networkEnabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch (Exception ex) {}
 
-        mapView.getOverlays().add(destinationMarker);
-        mapView.invalidate(); // Refresh map
+        if (!gpsEnabled && !networkEnabled) {
+            showLocationEnableDialog();
+        }
+        setupLocationTracking();
+    }
+
+    private void showLocationEnableDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Activar Ubicación")
+                .setMessage("No tienes la ubicación activada")
+                .setPositiveButton("Activar", (dialog, which) -> {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(intent);
+                })
+                .setNegativeButton("Cancelar", (dialog, which) -> {
+                    Toast.makeText(this, "Necesitas la ubicación para desplazarte", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .setCancelable(false)
+                .show();
     }
 
     private boolean checkAndRequestLocationPermissions() {
@@ -126,7 +147,7 @@ public class MapActivity extends AppCompatActivity {
         mapView.getOverlays().add(locationOverlay);
 
         locationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000)
-                .setMinUpdateIntervalMillis(3000)
+                .setMinUpdateIntervalMillis(2000)
                 .build();
 
         createLocationCallback();
@@ -137,6 +158,23 @@ public class MapActivity extends AppCompatActivity {
                     locationCallback,
                     Looper.getMainLooper());
         }
+    }
+
+    private void addDestinationMarker() {
+        mapView.getOverlays().removeIf(overlay -> overlay instanceof Marker &&
+                "dest".equals(((Marker) overlay).getId()));
+
+        Marker destinationMarker = new Marker(mapView);
+        destinationMarker.setPosition(new GeoPoint(lat_destino, lon_destino));
+        destinationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        destinationMarker.setTitle("Siguiente Ubicación");
+        destinationMarker.setSnippet(nombre_destino);
+        destinationMarker.setId("dest");
+
+        destinationMarker.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_destination_pin));
+
+        mapView.getOverlays().add(destinationMarker);
+        mapView.invalidate();
     }
 
     private void centerMapOnLocation(Location location, double zoomLevel) {

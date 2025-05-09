@@ -51,4 +51,14 @@ dependencies {
     implementation("org.osmdroid:osmdroid-mapsforge:6.1.16") // optional for offline maps
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation ("com.github.bumptech.glide:glide:4.14.2");
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+
+    // Mockito
+    testImplementation("org.mockito:mockito-core:5.3.1")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.3.1")
+
+    // MockWebServer
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.11.0")
 }
