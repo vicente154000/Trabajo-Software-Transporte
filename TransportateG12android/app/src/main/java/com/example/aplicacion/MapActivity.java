@@ -177,11 +177,11 @@ public class MapActivity extends AppCompatActivity {
         mapView.invalidate();
     }
 
-    private void centerMapOnLocation(Location location, double zoomLevel) {
+    private void centerMapOnLocation(Location location) {
         MapController mapController = (MapController) mapView.getController();
         GeoPoint geoPoint = new GeoPoint(location.getLatitude(), location.getLongitude());
 
-        mapController.animateTo(geoPoint, zoomLevel, 4000L);
+        mapController.animateTo(geoPoint, 19.0, 4000L);
     }
 
     private void updatePathLine(Location userLocation) {
@@ -206,7 +206,7 @@ public class MapActivity extends AppCompatActivity {
                 if (locationResult == null) return;
 
                 Location location = locationResult.getLastLocation();
-                centerMapOnLocation(location, 19.0);
+                centerMapOnLocation(location);
                 updatePathLine(location);
 
                 if (isAtDestination(location)) {

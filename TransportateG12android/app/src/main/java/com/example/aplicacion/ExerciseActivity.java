@@ -22,7 +22,7 @@ import services.UbicacionService;
 
 public class ExerciseActivity extends AppCompatActivity {
 
-    private Button btnStart, btnComplete, btnCancel, btnCamera,btnHelp, btnGps;;
+    private Button btnStart, btnComplete, btnCancel, btnCamera, btnHelp, btnGps;
     private TextView textoEjercicio;
     private EditText textoNombreEjercicio;
     private boolean camaraCompletada = false;
